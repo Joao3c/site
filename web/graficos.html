@@ -1,0 +1,95 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Gráficos de Desempenho</title>
+<link rel="stylesheet" href="/estilo.css">
+<style>
+  .controles { display: flex; flex-wrap: wrap; gap: 12px; align-items: center; justify-content: space-between; }
+  .grupo-botoes { display: flex; flex-wrap: wrap; gap: 0; }
+  .grupo-botoes button { border: 1px solid var(--line); background: var(--card); color: var(--ink); padding: 6px 12px; font-size: 13px; }
+  .grupo-botoes button:first-child { border-radius: 6px 0 0 6px; }
+  .grupo-botoes button:last-child { border-radius: 0 6px 6px 0; }
+  .grupo-botoes button + button { margin-left: -1px; }
+  .grupo-botoes button.ativo { background: var(--ink); color: #fff; border-color: var(--ink); }
+  .legenda { display: flex; flex-wrap: wrap; gap: 12px; font-size: 12px; color: var(--muted); margin-top: 8px; }
+  .legenda span::before { content: ""; display: inline-block; width: 10px; height: 10px; border-radius: 2px; margin-right: 6px; background: var(--cor); }
+  svg.grafico { width: 100%; height: auto; display: block; }
+  svg.grafico text { font-size: 11px; fill: var(--muted); }
+  svg.grafico .eixo { stroke: var(--line); }
+  .kpis-graf { grid-template-columns: repeat(auto-fit, minmax(150px, 1fr)); }
+  .vazio { color: var(--muted); padding: 40px 0; text-align: center; }
+  .sem-acesso { text-align: center; padding: 60px 20px; }
+</style>
+</head>
+<body>
+
+<header class="topo">
+  <div>
+    <h1>Gráficos de desempenho</h1>
+    <span class="sub"><a href="/">Voltar ao painel</a></span>
+  </div>
+  <div class="controles">
+    <div class="grupo-botoes" id="periodos">
+      <button data-p="dia">Dia</button>
+      <button data-p="semana" class="ativo">Semana</button>
+      <button data-p="mes">Mês</button>
+      <button data-p="ano">Ano</button>
+    </div>
+    <div class="grupo-botoes" id="metricas">
+      <button data-m="visualizacoes" class="ativo">Visualizações</button>
+      <button data-m="alcance">Alcance</button>
+      <button data-m="interacoes">Interações</button>
+      <button data-m="seguidores">Seguidores</button>
+      <button data-m="vendas">Vendas</button>
+      <button data-m="receita_centavos">Receita</button>
+    </div>
+  </div>
+</header>
+
+<main id="conteudo">
+  <p id="aviso-demo" class="aviso oculto">Dados de demonstração fictícios.</p>
+  <div id="sem-acesso" class="card sem-acesso oculto">
+    <p>Você precisa entrar para ver os gráficos.</p>
+    <p><a href="/">Ir para a tela de login</a></p>
+  </div>
+
+  <section class="kpis kpis-graf" id="kpis"></section>
+
+  <section class="card">
+    <h2 id="titulo-linha">Evolução diária</h2>
+    <div id="grafico-linha"></div>
+    <div class="legenda" id="legenda-linha"></div>
+  </section>
+
+  <div class="grade">
+    <section class="card">
+      <h2 id="titulo-barras">Total por rede</h2>
+      <div id="grafico-barras"></div>
+    </section>
+
+    <section class="card">
+      <h2>Participação por rede</h2>
+      <div id="grafico-pizza"></div>
+      <div class="legenda" id="legenda-pizza"></div>
+    </section>
+  </div>
+
+  <section class="card">
+    <h2>Resumo por rede no período</h2>
+    <table>
+      <thead><tr>
+        <th>Rede</th><th class="num">Visualizações</th><th class="num">Alcance</th>
+        <th class="num">Interações</th><th class="num">Taxa de interação</th>
+        <th class="num">Seguidores</th><th class="num">Vendas</th><th class="num">Receita</th>
+      </tr></thead>
+      <tbody id="tabela-resumo"></tbody>
+    </table>
+    <p class="nota">Taxa de interação = interações ÷ alcance. Receita é a receita líquida atribuída à rede.</p>
+  </section>
+</main>
+
+<script src="/graficos.js"></script>
+</body>
+</html>
