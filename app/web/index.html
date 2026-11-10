@@ -1,0 +1,155 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Plataforma de Redes Sociais e Vendas</title>
+<link rel="stylesheet" href="/estilo.css">
+</head>
+<body>
+
+<section id="login" class="tela">
+  <form id="form-login" class="card cartao-login">
+    <h1>Entrar</h1>
+    <label>E-mail <input type="email" name="email" required autocomplete="username"></label>
+    <label>Senha <input type="password" name="senha" required autocomplete="current-password"></label>
+    <button type="submit">Entrar</button>
+    <p id="erro-login" class="erro" role="alert"></p>
+  </form>
+</section>
+
+<section id="app" class="tela oculto">
+  <header class="topo">
+    <div>
+      <h1>Redes Sociais e Vendas</h1>
+      <span id="usuario" class="sub"></span>
+    </div>
+    <div class="acoes-topo">
+      <a href="/graficos.html" class="link-acao">Ver gráficos</a>
+      <div class="periodos" id="periodos">
+        <button data-p="dia">Dia</button>
+        <button data-p="semana" class="ativo">Semana</button>
+        <button data-p="mes">Mês</button>
+        <button data-p="ano">Ano</button>
+      </div>
+      <button id="sair" class="secundario">Sair</button>
+    </div>
+  </header>
+
+  <main>
+    <p id="aviso-demo" class="aviso oculto">Dados de demonstração fictícios.</p>
+
+    <section class="kpis" id="kpis"></section>
+
+    <div class="grade">
+      <section class="card">
+        <h2>Ranking por lucro líquido atribuído</h2>
+        <table>
+          <thead><tr>
+            <th>Rede</th><th class="num">Investido</th><th class="num">Receita líq.</th>
+            <th class="num">Clientes</th><th class="num">Custo/cliente</th><th class="num">Lucro líq.</th>
+          </tr></thead>
+          <tbody id="ranking"></tbody>
+        </table>
+        <p class="nota" id="nota-lucro"></p>
+      </section>
+
+      <section class="card">
+        <h2>Alcance por rede</h2>
+        <div id="barras"></div>
+      </section>
+    </div>
+
+    <section class="card">
+      <h2>Recomendações</h2>
+      <div id="recomendacoes"></div>
+      <p class="nota">Nenhuma alteração de orçamento é feita automaticamente. Toda recomendação exige decisão do administrador.</p>
+    </section>
+
+    <div class="grade">
+      <section class="card" id="bloco-registro">
+        <h2>Registrar dados</h2>
+        <form id="form-gasto" class="form-linha">
+          <h3>Investimento em mídia</h3>
+          <select name="plataforma" required>
+            <option value="instagram">Instagram</option>
+            <option value="tiktok">TikTok</option>
+            <option value="youtube">YouTube</option>
+            <option value="facebook">Facebook</option>
+            <option value="pinterest">Pinterest</option>
+            <option value="linkedin">LinkedIn</option>
+            <option value="x">X</option>
+            <option value="kwai">Kwai</option>
+            <option value="producao">Produção de conteúdo</option>
+          </select>
+          <input type="date" name="data" required>
+          <input type="number" name="valor" step="0.01" min="0.01" placeholder="Valor (R$)" required>
+          <input name="descricao" maxlength="200" placeholder="Descrição">
+          <button type="submit">Salvar gasto</button>
+        </form>
+
+        <form id="form-venda" class="form-linha">
+          <h3>Venda</h3>
+          <input type="date" name="data" required>
+          <input type="number" name="valor_bruto" step="0.01" min="0" placeholder="Bruto (R$)" required>
+          <input type="number" name="valor_liquido" step="0.01" min="0" placeholder="Líquido (R$)">
+          <select name="plataforma_origem" required>
+            <option value="instagram">Instagram</option>
+            <option value="tiktok">TikTok</option>
+            <option value="youtube">YouTube</option>
+            <option value="facebook">Facebook</option>
+            <option value="pinterest">Pinterest</option>
+            <option value="linkedin">LinkedIn</option>
+            <option value="x">X</option>
+            <option value="kwai">Kwai</option>
+          </select>
+          <input name="cliente_id" maxlength="64" placeholder="Código do cliente">
+          <input name="id_externo" maxlength="64" placeholder="Nº da venda no financeiro">
+          <button type="submit">Salvar venda</button>
+        </form>
+
+        <form id="form-metricas" class="form-linha">
+          <h3>Métricas diárias</h3>
+          <select name="conta_id" id="select-conta" required></select>
+          <input type="date" name="data" required>
+          <input type="number" name="alcance" min="0" placeholder="Alcance">
+          <input type="number" name="visualizacoes" min="0" placeholder="Visualizações">
+          <input type="number" name="curtidas" min="0" placeholder="Curtidas">
+          <input type="number" name="comentarios" min="0" placeholder="Comentários">
+          <input type="number" name="compartilhamentos" min="0" placeholder="Compartilhamentos">
+          <input type="number" name="salvamentos" min="0" placeholder="Salvamentos">
+          <input type="number" name="seguidores" min="0" placeholder="Seguidores">
+          <button type="submit">Salvar métricas</button>
+        </form>
+
+        <form id="form-conta" class="form-linha">
+          <h3>Nova conta</h3>
+          <select name="plataforma" required>
+            <option value="instagram">Instagram</option>
+            <option value="tiktok">TikTok</option>
+            <option value="youtube">YouTube</option>
+            <option value="facebook">Facebook</option>
+            <option value="pinterest">Pinterest</option>
+            <option value="linkedin">LinkedIn</option>
+            <option value="x">X</option>
+            <option value="kwai">Kwai</option>
+          </select>
+          <input name="nome_conta" maxlength="100" placeholder="Nome da conta" required>
+          <button type="submit">Cadastrar conta</button>
+        </form>
+        <p id="msg-registro" class="nota" role="status"></p>
+      </section>
+
+      <section class="card">
+        <h2>Financeiro (último período recebido)</h2>
+        <div id="financeiro"></div>
+        <h2 class="mt">Auditoria recente</h2>
+        <div id="auditoria" class="lista-auditoria"></div>
+      </section>
+    </div>
+  </main>
+</section>
+
+<script src="/app.js"></script>
+</body>
+</html>
